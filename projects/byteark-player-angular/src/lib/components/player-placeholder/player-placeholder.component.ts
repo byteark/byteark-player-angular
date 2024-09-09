@@ -72,7 +72,6 @@ export class PlayerPlaceholderComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    console.log('playerProps', this.playerProps);
     this.template = this.playerProps.placeholderTemplate;
 
     const { fluid, aspectRatio, fill, lazyload, poster } = this.playerProps;
