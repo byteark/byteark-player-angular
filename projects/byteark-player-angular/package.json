@@ -1,6 +1,26 @@
 {
-  "name": "byteark-player-angular",
-  "version": "0.0.1",
+  "name": "@byteark/byteark-player-angular",
+  "version": "1.0.0",
+  "description": "ByteArk Player Containter for Angular",
+  "author": "ByteArk",
+  "license": "MIT",
+  "homepage": "https://github.com/byteark/byteark-player-angular",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byteark/byteark-player-angular.git"
+  },
+  "bugs": {
+    "url": "https://github.com/byteark/byteark-player-angular/issues"
+  },
+  "keywords": [
+    "byteark",
+    "player",
+    "angular",
+    "video",
+    "player",
+    "videojs"
+  ],
+  "readme": "README.md",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0",
