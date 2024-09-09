@@ -16,7 +16,6 @@
     "clean": "rimraf dist",
     "serve:ssr:sample": "node dist/sample/server/server.mjs"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",
     "@angular/common": "^18.2.0",
