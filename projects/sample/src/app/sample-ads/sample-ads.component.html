@@ -1,0 +1,58 @@
+<site-nav></site-nav>
+<div class="max-w-screen-lg mx-auto py-6">
+  <h1 class="text-2xl font-medium">Advertisement Example</h1>
+  <div class="mt-4 flex flex-col w-full gap-6">
+    <div
+      class="aspect-video"
+      style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%"
+    >
+      <byteark-player-container [options]="options"> </byteark-player-container>
+    </div>
+    <div class="mt-4">
+      <video-info
+        [title]="video.title"
+        [description]="video.description"
+      ></video-info>
+    </div>
+    <h2 class="text-2xl mt-4">Code</h2>
+    <pre class="bg-black text-white p-4 rounded-md mt-4 overflow-x-auto">
+        <code >
+            &#64;Component(&#123;
+                selector: 'app-player',
+                standalone: true,
+                imports: [ByteArkPlayerContainer],
+                template: &#96;
+                    &lt;byteark-player-container [options]="options"&gt;&lt;/byteark-player-container&gt;
+                &#96;
+            &#125;)
+            export class PlayerComponent &#123;
+                options: ByteArkPlayerContainerProps = &#123;
+                    fluid: true,
+                    autoplay: 'any',
+                    muted: true,
+                    aspectRatio: '16:9',
+                    poster: this.video.poster,
+                    sources: [
+                        &#123;
+                            src: this.video.src,
+                            type: this.video.type,
+                            title: this.video.title
+                        &#125;
+                    ],
+                    plugins: &#123;
+                        bytearkAds: &#123;
+                            adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator='
+                        &#125;
+                    &#125;,
+                    onPlayerCreated: () =&gt; &#123;
+                        console.log('Created!');
+                    &#125;,
+                    onReady: () =&gt; &#123;
+                        console.log('Ready!');
+                    &#125;
+                &#125;
+            &#125;
+        </code>
+      </pre>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div style="position: relative; width: 100%; height: 75vh">
+  <byteark-player-container [options]="options"> </byteark-player-container>
+</div>
+<site-nav></site-nav>
+<div class="max-w-screen-lg mx-auto py-6">
+  <h1 class="text-2xl font-medium">Fill Layout Example</h1>
+  <div class="mt-4 flex w-full gap-6">
+    <div class="w-2/3">
+      <div class="mt-4">
+        <video-info
+          [title]="video.title"
+          [description]="video.description"
+        ></video-info>
+      </div>
+      <h2 class="text-2xl mt-4">Code</h2>
+      <pre class="bg-black text-white p-4 rounded-md mt-4 overflow-x-auto">
+        <code>
+            &#64;Component(&#123;
+                selector: 'app-player',
+                standalone: true,
+                imports: [ByteArkPlayerContainer],
+                template: &#96;
+                    &lt;byteark-player-container [options]="options"&gt;&lt;/byteark-player-container&gt;
+                &#96;
+            &#125;)
+            export class PlayerComponent &#123;
+                options: ByteArkPlayerContainerProps = &#123;
+                    fill: true,
+                    autoplay: false,
+                    poster: this.video.poster,
+                    sources: [
+                        &#123;
+                            src: this.video.src,
+                            type: this.video.type,
+                            title: this.video.title
+                        &#125;
+                    ],
+                    onPlayerCreated: () =&gt; &#123;
+                        console.log('Created!');
+                    &#125;,
+                    onReady: () =&gt; &#123;
+                        console.log('Ready!');
+                    &#125;
+                &#125;
+            &#125;
+        </code>
+      </pre>
+    </div>
+    <div class="w-1/3">
+      <video-list
+        [videos]="videos"
+        (videoSelected)="onVideoSelected($event)"
+      ></video-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div style="position: relative; height: 100%" #playerContainer>
+  <ng-container *ngIf="playerContainerState.showPlaceholder">
+    <player-placeholder
+      (onClickPlaceholder)="onClickPlaceholder()"
+      [state]="playerContainerState"
+      [playerProps]="options"
+    ></player-placeholder>
+  </ng-container>
+  <div
+    #media
+    [style.display]="playerContainerState.showPlaceholder ? 'none' : 'initial'"
+  >
+    @if(playerContainerState.error === null) {
+    <audio
+      *ngIf="options.audioOnlyMode"
+      #mediaRef
+      class="video-js"
+      [class]="videoClasses"
+    ></audio>
+    <video
+      *ngIf="!options.audioOnlyMode"
+      #mediaRef
+      playsinline
+      class="video-js"
+      [class]="videoClasses"
+    ></video>
+    }
+  </div>
+</div>

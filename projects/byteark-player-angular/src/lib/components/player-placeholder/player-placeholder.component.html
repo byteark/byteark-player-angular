@@ -1,0 +1,27 @@
+<ng-container *ngIf="state.error; else playIconTemplate">
+  <player-load-error-message [error]="state.error"></player-load-error-message>
+</ng-container>
+
+<ng-template #playIconTemplate>
+  @if (template) {
+  <ng-container [ngTemplateOutlet]="template.nativeElement"></ng-container>
+  } @else {
+
+  <button
+    [class]="playerProps.className"
+    [ngStyle]="placeholderCustomStyle"
+    (click)="onClickPlaceholder.emit()"
+  >
+    <svg
+      *ngIf="shouldShowPlayIcon"
+      [ngStyle]="playIconStyle"
+      viewBox="0 0 60 60"
+    >
+      <path
+        [ngStyle]="pathStyle"
+        d="M47.43,27.26,14.11,5.87A3.34,3.34,0,0,0,9,8.79V51.56a3.34,3.34,0,0,0,5.11,2.91L47.43,33.09A3.49,3.49,0,0,0,47.43,27.26Z"
+      />
+    </svg>
+  </button>
+  }
+</ng-template>

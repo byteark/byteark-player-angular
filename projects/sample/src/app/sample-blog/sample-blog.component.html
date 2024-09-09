@@ -1,0 +1,46 @@
+<div class="container w-full px-4 mx-auto" style="max-width: 800px">
+  <site-header />
+  <section class="mt-4 mb-4">
+    <p>
+      Welcome! This is an example for ByteArk Player Container for Angular. For
+      the repository, see{{ " " }}
+      <a href="https://github.com/maxmurr/byteark-player-angular-demo">
+        https://github.com/maxmurr/byteark-player-angular-demo
+      </a>
+    </p>
+  </section>
+  <section class="mt-4 mb-4">
+    <h2 class="text-xl">Examples</h2>
+    <p>
+      The following is the most common example for videos that inline with your
+      content. This player is created with fluid layout mode, and setting aspect
+      ratio to 16:9.
+    </p>
+    <div class="player-container mt-4 mb-4" style="position: relative">
+      <byteark-player-container [options]="options"> </byteark-player-container>
+    </div>
+  </section>
+  <section class="mt-4 mb-4">
+    <h2 class="text-xl">More Examples</h2>
+    <ul class="list-disc list-inside px-4 py-2">
+      <li>
+        <a routerLink="/fluid">Fluid Layout</a>
+      </li>
+      <li>
+        <a routerLink="/fill">Fill Layout</a>
+      </li>
+      <li>
+        <a routerLink="/full">Full Page Layout</a>
+      </li>
+      <li>
+        <a routerLink="/lazy-load">Lazy Load Player</a>
+      </li>
+      <li>
+        <a routerLink="/autoplay">Autoplay</a>
+      </li>
+      <li>
+        <a routerLink="/ads">Advertisement</a>
+      </li>
+    </ul>
+  </section>
+</div>
