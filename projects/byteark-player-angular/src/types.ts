@@ -279,7 +279,7 @@ export interface ByteArkPlayerContainerProps extends ByteArkPlayerOptions {
   playerJsFileName?: string;
   playerCssFileName?: string;
   setupPlayerFunction?: SetupPlayerFunction;
-  placeholderTemplate?: TemplateRef<any>;
+  placeholderTemplate?: TemplateRef<unknown>;
 }
 
 export interface ByteArkPlayerContainerState {

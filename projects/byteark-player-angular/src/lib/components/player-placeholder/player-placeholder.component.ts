@@ -44,7 +44,7 @@ function getPlaceholderPaddingTopFromAspectRatio(aspectRatio: unknown): number {
 export class PlayerPlaceholderComponent implements OnChanges {
   @Input() playerProps!: ByteArkPlayerContainerProps;
   @Input() state!: Pick<ByteArkPlayerContainerState, 'error' | 'loaded'>;
-  @Input() template?: TemplateRef<any>;
+  @Input() template?: TemplateRef<unknown>;
   @Output() onClickPlaceholder = new EventEmitter();
 
   placeholderCustomStyle: Record<string, string> = {

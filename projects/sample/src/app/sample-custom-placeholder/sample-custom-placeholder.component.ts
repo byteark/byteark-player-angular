@@ -23,7 +23,7 @@ import { VideoInfoComponent } from '../../components/video-info.component';
 export class SampleCustomPlaceholderComponent {
   title = 'ByteArk Player Container | Sample Customer Placeholder';
   @ViewChild('placeholderTemplateRef', { static: true })
-  placeholderTemplateRef!: TemplateRef<any>;
+  placeholderTemplateRef!: TemplateRef<unknown>;
   video = videos[0];
 
   player?: ByteArkPlayer;
