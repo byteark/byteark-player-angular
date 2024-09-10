@@ -33,12 +33,6 @@ Ensure you have the following installed:
    bun add byteark-player-angular
    ```
 
-2. **Import the styles in your global CSS file:**
-
-   ```css
-   @import "byteark-player-angular/dist/index.css";
-   ```
-
 ## Usage
 
 To use the ByteArk Player Container in your Angular application, follow these steps:
@@ -47,7 +41,7 @@ To use the ByteArk Player Container in your Angular application, follow these st
 
    ```typescript
    import { Component } from "@angular/core";
-   import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "byteark-player-angular";
+   import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@bytearkbyteark-player-angular";
 
    @Component({
      selector: "app-sample-blog",
@@ -97,7 +91,7 @@ Here's a complete example of how to use the ByteArk Player Container in an Angul
 
 ```typescript
 import { Component } from "@angular/core";
-import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "byteark-player-angular";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@bytearkbyteark-player-angular";
 
 @Component({
   selector: "app-sample-blog",
