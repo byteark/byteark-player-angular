@@ -4,9 +4,8 @@
 
 <ng-template #playIconTemplate>
   @if (template) {
-  <ng-container [ngTemplateOutlet]="template.nativeElement"></ng-container>
+  <ng-container [ngTemplateOutlet]="template"></ng-container>
   } @else {
-
   <button
     [class]="playerProps.className"
     [ngStyle]="placeholderCustomStyle"

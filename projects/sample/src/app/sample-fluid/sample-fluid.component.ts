@@ -31,6 +31,7 @@ export class SampleFluidComponent {
       autoplay: false,
       aspectRatio: '16:9',
       poster: this.video.poster,
+      lazyload: true,
       sources: [
         {
           src: this.video.src,
@@ -53,5 +54,9 @@ export class SampleFluidComponent {
 
   onVideoSelected(video: Video) {
     this.video = video;
+    this.options.poster = video.poster;
+    this.options.sources[0].src = video.src;
+    this.options.sources[0].type = video.type;
+    this.options.sources[0].title = video.title;
   }
 }

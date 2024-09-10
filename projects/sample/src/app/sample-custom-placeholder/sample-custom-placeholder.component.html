@@ -6,7 +6,13 @@
       class="aspect-video"
       style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%"
     >
-      <byteark-player-container [options]="options"> </byteark-player-container>
+      <byteark-player-container [options]="options" />
+      <ng-template #placeholderTemplateRef>
+        <custom-placeholder
+          [playerProps]="options"
+          (clickPlaceholder)="onClickPlaceholder()"
+        />
+      </ng-template>
     </div>
     <div class="mt-4">
       <video-info
@@ -20,16 +26,26 @@
             &#64;Component(&#123;
                 selector: 'app-player',
                 standalone: true,
-                imports: [ByteArkPlayerContainer],
+                imports: [ByteArkPlayerContainer, CustomPlaceholder],
                 template: &#96;
-                    &lt;byteark-player-container [options]="options"/&gt;
+                    &lt;byteark-player-container [options]="options"&gt;
+                      &lt;ng-template #placeholderTemplateRef&gt;
+                        &lt;customer-placeholder
+                          [playerProps]="options"
+                          (clickPlaceholder)="onClickPlaceholder()"
+                        /&gt;
+                      &lt;/ng-template&gt;
+                    &lt;/byteark-player-container&gt;
                 &#96;
             &#125;)
             export class PlayerComponent &#123;
+                &#64;ViewChild('placeholderTemplateRef', &#123; static: true &#123;)
+                placeholderTemplateRef!: TemplateRef&lt;any&gt;;
+
+                player?: ByteArkPlayer;
                 options: ByteArkPlayerContainerProps = &#123;
-                    fluid: true,
+                    fluid: false,
                     autoplay: false,
-                    lazyload: true,
                     aspectRatio: '16:9',
                     poster: videos[0].poster,
                     sources: [
@@ -40,11 +56,16 @@
                         &#125;
                     ],
                     onPlayerCreated: () =&gt; &#123;
-                        console.log('Created!');
+                      this.player = player;
                     &#125;,
-                    onReady: () =&gt; &#123;
-                        console.log('Ready!');
-                    &#125;
+                &#125;
+
+                async onClickPlaceholder() &#125;
+                  await this.player?.play();
+                &#125;
+
+                ngOnInit() &#125;
+                  this.options.placeholderTemplate = this.placeholderTemplateRef;
                 &#125;
             &#125;
         </code>

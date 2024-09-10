@@ -1,6 +1,6 @@
 import videojs from 'video.js';
 import { ByteArkPlayerContainerError } from './utils/error';
-import { type ElementRef } from '@angular/core';
+import { TemplateRef, type ElementRef } from '@angular/core';
 
 declare global {
   interface Window {
@@ -279,7 +279,7 @@ export interface ByteArkPlayerContainerProps extends ByteArkPlayerOptions {
   playerJsFileName?: string;
   playerCssFileName?: string;
   setupPlayerFunction?: SetupPlayerFunction;
-  placeholderTemplate?: ElementRef<any>;
+  placeholderTemplate?: TemplateRef<any>;
 }
 
 export interface ByteArkPlayerContainerState {

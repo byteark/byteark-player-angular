@@ -22,7 +22,6 @@
                 standalone: true,
                 imports: [ByteArkPlayerContainer],
                 template: &#96;
-                    &lt;byteark-player-container [options]="options"&gt;&lt;/byteark-player-container&gt;
                 &#96;
             &#125;)
             export class PlayerComponent &#123;
@@ -31,12 +30,12 @@
                     autoplay: 'any',
                     muted: true,
                     aspectRatio: '16:9',
-                    poster: this.video.poster,
+                    poster: videos[0].poster,
                     sources: [
                         &#123;
-                            src: this.video.src,
-                            type: this.video.type,
-                            title: this.video.title
+                            src: videos[0].src,
+                            type: videos[0].type,
+                            title: videos[0].title
                         &#125;
                     ],
                     plugins: &#123;

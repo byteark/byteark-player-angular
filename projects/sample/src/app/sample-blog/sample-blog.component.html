@@ -4,8 +4,8 @@
     <p>
       Welcome! This is an example for ByteArk Player Container for Angular. For
       the repository, see{{ " " }}
-      <a href="https://github.com/maxmurr/byteark-player-angular-demo">
-        https://github.com/maxmurr/byteark-player-angular-demo
+      <a href="https://github.com/byteark/byteark-player-angular">
+        https://github.com/byteark/byteark-player-angular
       </a>
     </p>
   </section>
@@ -17,7 +17,7 @@
       ratio to 16:9.
     </p>
     <div class="player-container mt-4 mb-4" style="position: relative">
-      <byteark-player-container [options]="options"> </byteark-player-container>
+      <byteark-player-container [options]="options" />
     </div>
   </section>
   <section class="mt-4 mb-4">
@@ -40,6 +40,9 @@
       </li>
       <li>
         <a routerLink="/ads">Advertisement</a>
+      </li>
+      <li>
+        <a routerLink="/custom-placeholder">Custom placeholder</a>
       </li>
     </ul>
   </section>

@@ -20,7 +20,6 @@
     "player",
     "videojs"
   ],
-  "readme": "README.md",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0",

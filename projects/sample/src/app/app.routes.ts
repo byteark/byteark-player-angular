@@ -6,6 +6,7 @@ import { SampleFullComponent } from './sample-full/sample-full.component';
 import { SampleLazyLoadComponent } from './sample-lazy-load/sample-lazy-load.component';
 import { SampleAutoplayComponent } from './sample-autoplay/sample-autoplay.component';
 import { SampleAdsComponent } from './sample-ads/sample-ads.component';
+import { SampleCustomPlaceholderComponent } from './sample-custom-placeholder/sample-custom-placeholder.component';
 
 export const routes: Routes = [
   {
@@ -35,5 +36,9 @@ export const routes: Routes = [
   {
     path: 'ads',
     component: SampleAdsComponent,
+  },
+  {
+    path: 'custom-placeholder',
+    component: SampleCustomPlaceholderComponent,
   },
 ];

@@ -198,13 +198,14 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    console.log('ByteArkPlayerContainer', this.options);
     if (this.isBrowser && !this.lazyLoad) await this.initializePlayer();
     this.updateVideoClasses();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['options']) {
-      this.usePrevious(this.options);
+      this.previousProps = changes['options'].previousValue;
       if (this.player && this.options && this.previousProps) {
         updatePlayerProps(this.player, this.options, this.previousProps);
       }

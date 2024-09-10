@@ -1,10 +1,11 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
   Input,
-  OnInit,
+  OnChanges,
+  SimpleChanges,
   Output,
+  TemplateRef,
 } from '@angular/core';
 import { PlayerLoadErrorMessageComponent } from '../player-load-error-message/player-load-error-message.component';
 import {
@@ -36,11 +37,14 @@ function getPlaceholderPaddingTopFromAspectRatio(aspectRatio: unknown): number {
   standalone: true,
   imports: [CommonModule, PlayerLoadErrorMessageComponent],
   templateUrl: './player-placeholder.component.html',
+  // host: {
+  //   class: 'player-placeholder',
+  // },
 })
-export class PlayerPlaceholderComponent implements OnInit {
+export class PlayerPlaceholderComponent implements OnChanges {
   @Input() playerProps!: ByteArkPlayerContainerProps;
   @Input() state!: Pick<ByteArkPlayerContainerState, 'error' | 'loaded'>;
-  @Input() template?: ElementRef<any>;
+  @Input() template?: TemplateRef<any>;
   @Output() onClickPlaceholder = new EventEmitter();
 
   placeholderCustomStyle: Record<string, string> = {
@@ -71,9 +75,13 @@ export class PlayerPlaceholderComponent implements OnInit {
     transform: 'translateX(13px) translateY(9px) scale(0.7)',
   };
 
-  ngOnInit(): void {
-    this.template = this.playerProps.placeholderTemplate;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['playerProps'] || changes['state']) {
+      this.updateStyles();
+    }
+  }
 
+  private updateStyles(): void {
     const { fluid, aspectRatio, fill, lazyload, poster } = this.playerProps;
     const { error, loaded } = this.state;
 
@@ -101,6 +109,10 @@ export class PlayerPlaceholderComponent implements OnInit {
 
       this.placeholderCustomStyle['cursor'] = 'pointer';
     }
+  }
+
+  ngOnInit() {
+    this.template = this.playerProps.placeholderTemplate;
   }
 
   shouldShowPlayIcon =
