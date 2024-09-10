@@ -41,7 +41,7 @@ To use the ByteArk Player Container in your Angular application, follow these st
 
    ```typescript
    import { Component } from "@angular/core";
-   import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@bytearkbyteark-player-angular";
+   import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@byteark/byteark-player-angular";
 
    @Component({
      selector: "app-sample-blog",
@@ -91,7 +91,7 @@ Here's a complete example of how to use the ByteArk Player Container in an Angul
 
 ```typescript
 import { Component } from "@angular/core";
-import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@bytearkbyteark-player-angular";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@byteark/byteark-player-angular";
 
 @Component({
   selector: "app-sample-blog",
