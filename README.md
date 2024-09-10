@@ -24,13 +24,13 @@ Ensure you have the following installed:
 1. **Install the package:**
 
    ```sh
-   npm install byteark-player-angular
+   npm install @byteark/byteark-player-angular
    # or
-   yarn add byteark-player-angular
+   yarn add @byteark/byteark-player-angular
    # or
-   pnpm add byteark-player-angular
+   pnpm add @byteark/byteark-player-angular
    # or
-   bun add byteark-player-angular
+   bun add @byteark/byteark-player-angular
    ```
 
 ## Usage
