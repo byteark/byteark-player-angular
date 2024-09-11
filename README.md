@@ -310,6 +310,55 @@ export class SampleBlogComponent {
 }
 ```
 
+### Customize the player's Placeholder before the player is ready
+
+```typescript
+import { Component, ViewChild, TemplateRef } from "@angular/core";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@byteark/byteark-player-angular";
+import { CustomPlaceholderComponent } from "./custom-placeholder.component";
+
+@Component({
+  selector: "app-sample-blog",
+  standalone: true,
+  imports: [ByteArkPlayerContainer, CustomPlaceholderComponent],
+  template: ` <div class="aspect-video" style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%">
+    <byteark-player-container [options]="options"></byteark-player-container>
+    <ng-template #placeholderTemplateRef>
+      <custom-placeholder [playerProps]="options" (clickPlaceholder)="onClickPlaceholder()" />
+    </ng-template>
+  </div>`,
+})
+export class SampleBlogComponent {
+  title = "ByteArk Player Container | Sample Blog";
+  @ViewChild("placeholderTemplateRef", { static: true }) placeholderTemplateRef!: TemplateRef<unknown>;
+
+  options: ByteArkPlayerContainerProps = {
+    playerEndpoint: "https://my-custom-endpoint.byteark.com",
+    lazyload: true,
+    fluid: true,
+    autoplay: false,
+    aspectRatio: "16:9",
+    poster: "https://example.com/poster.jpg",
+    sources: [
+      {
+        src: "https://example.com/video.mp4",
+        type: "video/mp4",
+        title: "Sample Video",
+      },
+    ],
+    placeholderTemplate: this.placeholderTemplate,
+  };
+
+  async onClickPlaceholder() {
+    await this.player?.play();
+  }
+
+  ngOnInit() {
+    this.options.placeholderTemplate = this.placeholderTemplate;
+  }
+}
+```
+
 ## License
 
 MIT © [ByteArk Co. Ltd.](https://github.com/byteark)
