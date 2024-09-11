@@ -15,6 +15,7 @@
     - [Controlling Players](#controlling-players)
     - [Using VideoJS Plugins](#using-videojs-plugins)
     - [Request Media/Encryption with credentials](#request-mediaencryption-with-credentials)
+    - [Customize Placeholder](#customize-placeholder)
   - [License](#license)
 
 ## Demo
@@ -310,7 +311,9 @@ export class SampleBlogComponent {
 }
 ```
 
-### Customize the player's Placeholder before the player is ready
+### Customize Placeholder
+
+You can customize the player's placeholder before the player is ready.
 
 ```typescript
 import { Component, ViewChild, TemplateRef } from "@angular/core";
