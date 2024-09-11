@@ -10,7 +10,6 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { PreviousValueService } from '../../services/previous-value-service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import type {
   ByteArkPlayer,
@@ -44,6 +43,7 @@ import {
 } from '../../../utils/error';
 import { PlayerPlaceholderComponent } from '../player-placeholder/player-placeholder.component';
 import { updatePlayerProps } from '../../../utils/update-player-props';
+import { PreviousValueService } from './byteark-player-container.component.service';
 
 @Component({
   selector: 'byteark-player-container',
@@ -140,7 +140,7 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
 
   updateVideoClasses() {
     const videoClasses = [];
-    if (this.options.className) videoClasses.push(this.options.className);
+    if (this.options.class) videoClasses.push(this.options.class);
     if (this.options.fluid) {
       if (this.options.aspectRatio === '4:3') videoClasses.push('vjs-4-3');
       else if (this.options.aspectRatio === '16:9')
@@ -198,7 +198,6 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    console.log('ByteArkPlayerContainer', this.options);
     if (this.isBrowser && !this.lazyLoad) await this.initializePlayer();
     this.updateVideoClasses();
   }

@@ -8,8 +8,8 @@ import { VideoListItemComponent } from './video-list-item.component';
   imports: [VideoListItemComponent],
   template: `
     <div class="flex flex-col gap-3">
-      <h2 className="text-lg">Recommended Videos</h2>
-      <ul className="list-unstyled">
+      <h2 class="text-lg">Recommended Videos</h2>
+      <ul class="list-unstyled">
         @for (video of videos; track video.videoId) {
         <video-list-item
           [title]="video.title"

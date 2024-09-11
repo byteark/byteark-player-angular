@@ -7,7 +7,7 @@
   <ng-container [ngTemplateOutlet]="template"></ng-container>
   } @else {
   <button
-    [class]="playerProps.className"
+    [class]="playerProps.class"
     [ngStyle]="placeholderCustomStyle"
     (click)="onClickPlaceholder.emit()"
   >

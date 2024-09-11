@@ -263,7 +263,7 @@ export interface ByteArkStoryboardPluginOptions {
 }
 
 export interface ByteArkPlayerContainerProps extends ByteArkPlayerOptions {
-  className?: string;
+  class?: string;
   createPlayerFunction?: CreatePlayerFunction;
   lazyload?: boolean;
   onPlayerCreated?: OnPlayerCreatedFunction;

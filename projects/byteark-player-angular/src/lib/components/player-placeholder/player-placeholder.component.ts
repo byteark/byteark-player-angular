@@ -37,9 +37,6 @@ function getPlaceholderPaddingTopFromAspectRatio(aspectRatio: unknown): number {
   standalone: true,
   imports: [CommonModule, PlayerLoadErrorMessageComponent],
   templateUrl: './player-placeholder.component.html',
-  // host: {
-  //   class: 'player-placeholder',
-  // },
 })
 export class PlayerPlaceholderComponent implements OnChanges {
   @Input() playerProps!: ByteArkPlayerContainerProps;
@@ -81,7 +78,7 @@ export class PlayerPlaceholderComponent implements OnChanges {
     }
   }
 
-  private updateStyles(): void {
+  updateStyles(): void {
     const { fluid, aspectRatio, fill, lazyload, poster } = this.playerProps;
     const { error, loaded } = this.state;
 
