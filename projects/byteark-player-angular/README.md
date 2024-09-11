@@ -12,9 +12,9 @@
   - [Callback Props](#callback-props)
   - [Advanced Props](#advanced-props)
   - [Advanced Usages](#advanced-usages)
-    <!-- - [Controlling Players](#controlling-players)
+    - [Controlling Players](#controlling-players)
     - [Using VideoJS Plugins](#using-videojs-plugins)
-    - [Request Media/Encryption with credentials](#request-mediaencryption-with-credentials) -->
+    - [Request Media/Encryption with credentials](#request-mediaencryption-with-credentials)
   - [License](#license)
 
 ## Demo
@@ -56,7 +56,7 @@ To use the ByteArk Player Container in your Angular application, follow these st
      selector: "app-sample-blog",
      standalone: true,
      imports: [ByteArkPlayerContainer],
-     templateUrl: "./sample-blog.component.html",
+     template: ` <byteark-player-container [options]="options"></byteark-player-container> `,
    })
    export class SampleBlogComponent {
      title = "ByteArk Player Container | Sample Blog";
@@ -162,10 +162,19 @@ and some advance behaviours.
 | playerCssFileName    | String      | File name of player's CSS.                                                                                                                                                     |
 
 ```typescript
+import { Component } from "@angular/core";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@byteark/byteark-player-angular";
+
+@Component({
+  selector: "app-sample-blog",
+  standalone: true,
+  imports: [ByteArkPlayerContainer],
+  template: ` <byteark-player-container [options]="options"></byteark-player-container> `,
+})
 export class SampleBlogComponent {
   title = "ByteArk Player Container | Sample Blog";
   options: ByteArkPlayerContainerProps = {
-    playerEndpoint: "my-custom-endpoint",
+    playerEndpoint: "https://my-custom-endpoint.byteark.com",
     lazyload: true,
     fluid: true,
     autoplay: false,
@@ -184,7 +193,122 @@ export class SampleBlogComponent {
 
 ## Advanced Usages
 
-More information about advanced usages of the player will be added soon.
+### Controlling Players
+
+You may access the player instance from `onReady` callback parameter.
+
+```typescript
+import { Component } from "@angular/core";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps, type ByteArkPlayer } from "@byteark/byteark-player-angular";
+
+@Component({
+  selector: "app-sample-blog",
+  standalone: true,
+  imports: [ByteArkPlayerContainer],
+  template: ` <byteark-player-container [options]="options"></byteark-player-container> `,
+})
+export class SampleBlogComponent {
+  title = "ByteArk Player Container | Sample Blog";
+  player: ByteArkPlayer | null = null;
+  options: ByteArkPlayerContainerProps = {
+    playerEndpoint: "https://my-custom-endpoint.byteark.com",
+    lazyload: true,
+    fluid: true,
+    autoplay: false,
+    aspectRatio: "16:9",
+    poster: "https://example.com/poster.jpg",
+    sources: [
+      {
+        src: "https://example.com/video.mp4",
+        type: "video/mp4",
+        title: "Sample Video",
+      },
+    ],
+  };
+  onReady(player: ByteArkPlayer) {
+    this.player = player;
+  }
+}
+```
+
+### Using VideoJS Plugins
+
+You can use VideoJS plugins with ByteArk Player Container.
+
+```typescript
+import { Component } from "@angular/core";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@byteark/byteark-player-angular";
+
+@Component({
+  selector: "app-sample-blog",
+  standalone: true,
+  imports: [ByteArkPlayerContainer],
+  template: ` <byteark-player-container [options]="options"></byteark-player-container> `,
+})
+export class SampleBlogComponent {
+  title = "ByteArk Player Container | Sample Blog";
+  options: ByteArkPlayerContainerProps = {
+    playerEndpoint: "https://my-custom-endpoint.byteark.com",
+    lazyload: true,
+    fluid: true,
+    autoplay: false,
+    aspectRatio: "16:9",
+    poster: "https://example.com/poster.jpg",
+    sources: [
+      {
+        src: "https://example.com/video.mp4",
+        type: "video/mp4",
+        title: "Sample Video",
+      },
+    ],
+  };
+  onReady(player: ByteArkPlayer) {
+    // The player is ready! Initialize plugins here.
+  }
+}
+```
+
+### Request Media/Encryption with credentials
+
+```typescript
+import { Component } from "@angular/core";
+import { ByteArkPlayerContainer, type ByteArkPlayerContainerProps } from "@byteark/byteark-player-angular";
+
+@Component({
+  selector: "app-sample-blog",
+  standalone: true,
+  imports: [ByteArkPlayerContainer],
+  template: ` <byteark-player-container [options]="options"></byteark-player-container> `,
+})
+export class SampleBlogComponent {
+  title = "ByteArk Player Container | Sample Blog";
+  options: ByteArkPlayerContainerProps = {
+    playerEndpoint: "https://my-custom-endpoint.byteark.com",
+    lazyload: true,
+    fluid: true,
+    autoplay: false,
+    aspectRatio: "16:9",
+    poster: "https://example.com/poster.jpg",
+    sources: [
+      {
+        src: "https://example.com/video.mp4",
+        type: "video/mp4",
+        title: "Sample Video",
+      },
+    ],
+    html5: {
+      hlsjs: {
+        xhrSetup: function (xhr: XMLHttpRequest, url: string) {
+          xhr.withCredentials = true;
+        },
+      },
+    },
+  };
+  onReady(player: ByteArkPlayer) {
+    // The player is ready! Initialize plugins here.
+  }
+}
+```
 
 ## License
 
