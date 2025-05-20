@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TemplateRef } from '@angular/core';
-import videojs from 'video.js';
 
 import { ByteArkPlayerContainerError } from './utils/error';
+
+// @ts-ignore
+import type videojs from '@types/video.js';
+// @ts-ignore
+import type { VideoJsPlayer, VideoJsPlayerOptions } from '@types/video.js';
 
 declare global {
   interface Window {
@@ -17,7 +22,7 @@ declare global {
   }
 }
 
-export interface ByteArkPlayer extends videojs.Player {
+export interface ByteArkPlayer extends VideoJsPlayer {
   info: () => ByteArkPlayerInfo;
   skipIntroTime: (time: number) => void;
   qualityLevels: () => ByteArkPlayerQualityLevelItem[];
@@ -83,7 +88,7 @@ export interface AutoplayResult {
   muted: boolean;
 }
 
-export interface ByteArkPlayerOptions extends videojs.PlayerOptions {
+export interface ByteArkPlayerOptions extends VideoJsPlayerOptions {
   autoplayResult_?: AutoplayResult;
   autoplayadsmuted?: boolean;
   autoSeekToLiveEdge?: boolean;
