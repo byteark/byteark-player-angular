@@ -75,6 +75,14 @@ export async function loadPlayerResources(config: LoadPlayerResourceConfig) {
   }
 }
 
+export function clearPlayerResources() {
+  document.querySelectorAll('[id^="byteark-player-"]').forEach((el) => {
+    if (el.tagName === 'SCRIPT' || el.tagName === 'LINK') {
+      el.remove();
+    }
+  });
+}
+
 export async function setupPlayerOptions(options: ByteArkPlayerOptions) {
   try {
     const autoplayResult = await window.bytearkPlayer.canAutoplay(options);

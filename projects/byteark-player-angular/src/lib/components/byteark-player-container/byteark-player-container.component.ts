@@ -22,7 +22,13 @@ import {
 } from '../../../constants';
 import { ByteArkPlayerContainerError, LoadPlayerResourceError, SetupPlayerOptionsError } from '../../../utils/error';
 import { defaultCreatePlayerFunction, defaultSetupPlayerFunction } from '../../../utils/function';
-import { createPlayerInstance, loadPlayerResources, setupPlayer, setupPlayerOptions } from '../../../utils/player';
+import {
+  createPlayerInstance,
+  loadPlayerResources,
+  clearPlayerResources,
+  setupPlayer,
+  setupPlayerOptions,
+} from '../../../utils/player';
 import { updatePlayerProps } from '../../../utils/update-player-props';
 import { PlayerPlaceholderComponent } from '../player-placeholder/player-placeholder.component';
 
@@ -281,5 +287,13 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
       error: null,
       showPlaceholder: true,
     };
+
+    // reset the initialize in progress flag
+    this.initializeInProgress = false;
+
+    if (this.isBrowser) {
+      // clear player resources
+      clearPlayerResources();
+    }
   }
 }
