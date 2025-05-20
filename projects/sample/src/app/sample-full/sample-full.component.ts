@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {
-  ByteArkPlayerContainer,
-  ByteArkPlayerContainerProps,
-} from 'byteark-player-angular';
+
+import { ByteArkPlayerContainer, ByteArkPlayerContainerProps } from 'byteark-player-angular';
+
 import { videos } from '../../data/videos';
 
 @Component({
@@ -13,7 +12,7 @@ import { videos } from '../../data/videos';
 })
 export class SampleFullComponent {
   title = 'ByteArk Player Container | Full Page Example';
-  
+
   options: ByteArkPlayerContainerProps = {
     fill: true,
     autoplay: false,

@@ -4,6 +4,7 @@ function tryResolveSrcType(src: string): string | null {
   } else if (src.endsWith('.css')) {
     return 'style';
   }
+
   return null;
 }
 
@@ -67,11 +68,7 @@ function waitForTagLoad(tag: HTMLElement): Promise<void> {
   });
 }
 
-export function loadScriptOrStyle(
-  id: string,
-  src: string,
-  type: 'script' | 'style'
-): Promise<void> {
+export function loadScriptOrStyle(id: string, src: string, type: 'script' | 'style'): Promise<void> {
   const existingElement = document.getElementById(id);
 
   if (existingElement) {

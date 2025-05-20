@@ -1,10 +1,3 @@
-import { isBrowserSupportDrm } from './drm';
-import {
-  CreatePlayerError,
-  LoadPlayerResourceError,
-  SetupPlayerError,
-  SetupPlayerOptionsError,
-} from './error';
 import {
   ByteArkPlayer,
   ByteArkPlayerContainerProps,
@@ -12,6 +5,9 @@ import {
   CreatePlayerFunction,
   SetupPlayerFunction,
 } from '../types';
+
+import { isBrowserSupportDrm } from './drm';
+import { CreatePlayerError, LoadPlayerResourceError, SetupPlayerError, SetupPlayerOptionsError } from './error';
 import { loadScriptOrStyle } from './load-script-or-style';
 
 type LoadPlayerResourceConfig = Pick<
@@ -26,14 +22,8 @@ type LoadPlayerResourceConfig = Pick<
 
 export async function loadPlayerResources(config: LoadPlayerResourceConfig) {
   try {
-    const {
-      playerJsFileName,
-      playerCssFileName,
-      playerVersion,
-      playerEndpoint,
-      playerServerEndpoint,
-      playerSlugId,
-    } = config;
+    const { playerJsFileName, playerCssFileName, playerVersion, playerEndpoint, playerServerEndpoint, playerSlugId } =
+      config;
 
     const promises: Promise<void>[] = [];
 
@@ -43,8 +33,8 @@ export async function loadPlayerResources(config: LoadPlayerResourceConfig) {
           loadScriptOrStyle(
             `byteark-player-script-${playerSlugId}`,
             `${playerServerEndpoint}/${playerSlugId}/libraries/${playerJsFileName}`,
-            'script'
-          )
+            'script',
+          ),
         );
       }
 
@@ -53,8 +43,8 @@ export async function loadPlayerResources(config: LoadPlayerResourceConfig) {
           loadScriptOrStyle(
             `byteark-player-style-${playerSlugId}`,
             `${playerServerEndpoint}/${playerSlugId}/libraries/${playerCssFileName}`,
-            'style'
-          )
+            'style',
+          ),
         );
       }
     } else {
@@ -63,8 +53,8 @@ export async function loadPlayerResources(config: LoadPlayerResourceConfig) {
           loadScriptOrStyle(
             `byteark-player-script-${playerVersion}`,
             `${playerEndpoint}/${playerVersion}/${playerJsFileName}`,
-            'script'
-          )
+            'script',
+          ),
         );
       }
 
@@ -73,8 +63,8 @@ export async function loadPlayerResources(config: LoadPlayerResourceConfig) {
           loadScriptOrStyle(
             `byteark-player-style-${playerVersion}`,
             `${playerEndpoint}/${playerVersion}/${playerCssFileName}`,
-            'style'
-          )
+            'style',
+          ),
         );
       }
     }
@@ -98,10 +88,7 @@ export async function setupPlayerOptions(options: ByteArkPlayerOptions) {
   }
 }
 
-export async function setupPlayer(
-  options: ByteArkPlayerOptions,
-  setupPlayerFunction: SetupPlayerFunction
-) {
+export async function setupPlayer(options: ByteArkPlayerOptions, setupPlayerFunction: SetupPlayerFunction) {
   try {
     await setupPlayerFunction(options, loadScriptOrStyle);
   } catch (error) {
@@ -113,7 +100,7 @@ export async function createPlayerInstance(
   mediaElement: HTMLMediaElement | null,
   options: ByteArkPlayerOptions,
   createPlayerFunction: CreatePlayerFunction,
-  onReady: () => void
+  onReady: () => void,
 ): Promise<ByteArkPlayer | null> {
   if (mediaElement === null) {
     return null;
@@ -124,6 +111,7 @@ export async function createPlayerInstance(
 
   try {
     const player = createPlayerFunction(mediaElement!, options, onReady);
+
     return player;
   } catch (error) {
     throw new CreatePlayerError('Failed to create player instance', error);

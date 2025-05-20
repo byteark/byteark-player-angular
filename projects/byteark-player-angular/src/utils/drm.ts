@@ -61,6 +61,7 @@ export async function isBrowserSupportDrm(): Promise<{
   if (!isSupportWidevine && !isSupportFairPlay) {
     return Promise.reject(new Error('Browser does not support DRM'));
   }
+
   return {
     widevine: isSupportWidevine,
     fairplay: isSupportFairPlay,

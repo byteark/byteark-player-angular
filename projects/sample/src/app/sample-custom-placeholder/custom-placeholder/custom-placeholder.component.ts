@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { ByteArkPlayerContainerProps } from 'byteark-player-angular';
 
 @Component({

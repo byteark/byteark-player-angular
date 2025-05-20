@@ -12,6 +12,6 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class VideoInfoComponent {
-  @Input() title: string = '';
-  @Input() description: string = '';
+  @Input() title = '';
+  @Input() description = '';
 }

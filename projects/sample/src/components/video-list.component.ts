@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { type Video } from '../data/videos';
+
 import { VideoListItemComponent } from './video-list-item.component';
+
+import type { Video } from '../data/videos';
 
 @Component({
   selector: 'video-list',
@@ -11,12 +13,11 @@ import { VideoListItemComponent } from './video-list-item.component';
       <h2 class="text-lg">Recommended Videos</h2>
       <ul class="list-unstyled">
         @for (video of videos; track video.videoId) {
-        <video-list-item
-          [title]="video.title"
-          [poster]="video.poster"
-          [video]="video"
-          (videoSelected)="onVideoSelected($event)"
-        />
+          <video-list-item
+            [title]="video.title"
+            [poster]="video.poster"
+            [video]="video"
+            (videoSelected)="onVideoSelected($event)" />
         }
       </ul>
     </div>

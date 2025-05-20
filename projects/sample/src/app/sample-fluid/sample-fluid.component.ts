@@ -1,23 +1,16 @@
 import { Component } from '@angular/core';
+
+import { ByteArkPlayerContainer, ByteArkPlayerContainerProps } from 'byteark-player-angular';
+
 import { SiteNavComponent } from '../../components/site-nav.component';
 import { VideoInfoComponent } from '../../components/video-info.component';
-import { Video, videos } from '../../data/videos';
-
-import {
-  ByteArkPlayerContainer,
-  ByteArkPlayerContainerProps,
-} from 'byteark-player-angular';
 import { VideoListComponent } from '../../components/video-list.component';
+import { Video, videos } from '../../data/videos';
 
 @Component({
   selector: 'app-sample-fluid',
   standalone: true,
-  imports: [
-    SiteNavComponent,
-    VideoInfoComponent,
-    ByteArkPlayerContainer,
-    VideoListComponent,
-  ],
+  imports: [SiteNavComponent, VideoInfoComponent, ByteArkPlayerContainer, VideoListComponent],
   templateUrl: './sample-fluid.component.html',
 })
 export class SampleFluidComponent {

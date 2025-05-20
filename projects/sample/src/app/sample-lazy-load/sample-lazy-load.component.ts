@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  ByteArkPlayerContainer,
-  ByteArkPlayerContainerProps,
-} from 'byteark-player-angular';
-import { videos } from '../../data/videos';
+
+import { ByteArkPlayerContainer, ByteArkPlayerContainerProps } from 'byteark-player-angular';
+
 import { SiteNavComponent } from '../../components/site-nav.component';
 import { VideoInfoComponent } from '../../components/video-info.component';
+import { videos } from '../../data/videos';
 
 @Component({
   selector: 'app-sample-lazy-load',

@@ -1,18 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  TemplateRef,
-} from '@angular/core';
-import { PlayerLoadErrorMessageComponent } from '../player-load-error-message/player-load-error-message.component';
-import {
-  type ByteArkPlayerContainerState,
-  type ByteArkPlayerContainerProps,
-} from '../../../types';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, SimpleChanges, Output, TemplateRef, OnInit } from '@angular/core';
+
+import { PlayerLoadErrorMessageComponent } from '../player-load-error-message/player-load-error-message.component';
+
+import type { ByteArkPlayerContainerState, ByteArkPlayerContainerProps } from '../../../types';
 
 function getPlaceholderPaddingTopFromAspectRatio(aspectRatio: unknown): number {
   if (typeof aspectRatio === 'number') {
@@ -38,11 +29,11 @@ function getPlaceholderPaddingTopFromAspectRatio(aspectRatio: unknown): number {
   imports: [CommonModule, PlayerLoadErrorMessageComponent],
   templateUrl: './player-placeholder.component.html',
 })
-export class PlayerPlaceholderComponent implements OnChanges {
+export class PlayerPlaceholderComponent implements OnChanges, OnInit {
   @Input() playerProps!: ByteArkPlayerContainerProps;
   @Input() state!: Pick<ByteArkPlayerContainerState, 'error' | 'loaded'>;
   @Input() template?: TemplateRef<unknown>;
-  @Output() onClickPlaceholder = new EventEmitter();
+  @Output() clickPlaceholder = new EventEmitter();
 
   placeholderCustomStyle: Record<string, string> = {
     position: 'relative',
@@ -83,9 +74,7 @@ export class PlayerPlaceholderComponent implements OnChanges {
     const { error, loaded } = this.state;
 
     if (fluid) {
-      this.placeholderCustomStyle[
-        'paddingTop'
-      ] = `${getPlaceholderPaddingTopFromAspectRatio(aspectRatio || '16:9')}%`;
+      this.placeholderCustomStyle['paddingTop'] = `${getPlaceholderPaddingTopFromAspectRatio(aspectRatio || '16:9')}%`;
     }
     if (!fluid && fill) {
       this.placeholderCustomStyle['height'] = '100%';

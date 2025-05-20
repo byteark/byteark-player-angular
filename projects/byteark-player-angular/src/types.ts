@@ -1,6 +1,7 @@
+import { TemplateRef } from '@angular/core';
 import videojs from 'video.js';
+
 import { ByteArkPlayerContainerError } from './utils/error';
-import { TemplateRef, type ElementRef } from '@angular/core';
 
 declare global {
   interface Window {
@@ -47,6 +48,7 @@ export interface ByteArkPlayerQualityLevelItem {
   url: string;
 }
 
+// eslint-disable-next-line import/no-named-as-default-member
 export interface ByteArkPlayerSource extends videojs.Tech.SourceObject {
   /** The video title text */
   title?: string;
@@ -101,12 +103,13 @@ export interface ByteArkPlayerOptions extends videojs.PlayerOptions {
     time: number;
   };
   autoRotate?: boolean;
-  errors?: {
-    [key: string]: {
+  errors?: Record<
+    string,
+    {
       imageUrl: string;
       message: string;
-    };
-  };
+    }
+  >;
   plugins?: ByteArkPlayerPlugins;
 }
 
@@ -138,7 +141,7 @@ export interface ByteArkAdsPluginOptions {
   /**
    *
    */
-  ads?: Array<{
+  ads?: {
     /**
      * A VAST ad tag url that is requested from the ad server
      */
@@ -160,7 +163,7 @@ export interface ByteArkAdsPluginOptions {
      * - percentage: show the ad at the specific percentage of the video e.g. '50%' for mid-roll
      */
     time: number | string | 'pre' | 'post';
-  }>;
+  }[];
 
   /**
    * Show the controls for JS ads
@@ -250,9 +253,7 @@ export interface ByteArkVolumeBoosterPluginOptions {
   [key: string]: unknown;
 }
 
-export interface ByteArkRetentionChartPluginOptions {
-  [key: string]: unknown;
-}
+export type ByteArkRetentionChartPluginOptions = Record<string, unknown>;
 
 export interface ByteArkStoryboardPluginOptions {
   width?: number;
@@ -289,16 +290,16 @@ export interface ByteArkPlayerContainerState {
   showPlaceholder: boolean;
 }
 
-export type PlaceholderProps = {
+export interface PlaceholderProps {
   props: ByteArkPlayerContainerProps;
   state: Pick<ByteArkPlayerContainerState, 'error' | 'loaded'>;
-  onClickPlaceholder: () => void;
-};
+  clickPlaceholder: () => void;
+}
 
 export type CreatePlayerFunction = (
   node: HTMLMediaElement,
   options: ByteArkPlayerOptions,
-  onReady: () => void
+  onReady: () => void,
 ) => ByteArkPlayer;
 
 export type SetupPlayerFunction = (
@@ -306,14 +307,10 @@ export type SetupPlayerFunction = (
   options: ByteArkPlayerOptions,
 
   /* Script/style loader function */
-  loadScriptOrStyleFunction: (
-    id: string,
-    url: string,
-    type: 'script' | 'style'
-  ) => Promise<void>,
+  loadScriptOrStyleFunction: (id: string, url: string, type: 'script' | 'style') => Promise<void>,
 
   /* options for load plugin from custom url */
-  customOptions?: { [key: string]: unknown }
+  customOptions?: Record<string, unknown>,
 ) => Promise<void>;
 
 export type OnPlayerCreatedFunction = (player: ByteArkPlayer) => void;
@@ -322,7 +319,7 @@ export type OnPlayerLoadedFunction = () => void;
 
 export type OnPlayerLoadErrorFunction = (
   error: ByteArkPlayerContainerError,
-  originalError: ByteArkPlayerError | unknown
+  originalError: ByteArkPlayerError | unknown,
 ) => void;
 
 export type OnPlayerReadyFunction = (player: ByteArkPlayer) => void;
@@ -331,5 +328,5 @@ export type OnPlayerSetupFunction = () => void;
 
 export type OnPlayerSetupErrorFunction = (
   error: ByteArkPlayerContainerError,
-  originalError: ByteArkPlayerError | unknown
+  originalError: ByteArkPlayerError | unknown,
 ) => void;

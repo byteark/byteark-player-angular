@@ -1,3 +1,4 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -9,8 +10,24 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
+  OnChanges,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+
+import {
+  PLAYER_CSS_FILENAME,
+  PLAYER_ENDPOINT,
+  PLAYER_JS_FILENAME,
+  PLAYER_SERVER_ENDPOINT,
+  PLAYER_VERSION,
+} from '../../../constants';
+import { ByteArkPlayerContainerError, LoadPlayerResourceError, SetupPlayerOptionsError } from '../../../utils/error';
+import { defaultCreatePlayerFunction, defaultSetupPlayerFunction } from '../../../utils/function';
+import { createPlayerInstance, loadPlayerResources, setupPlayer, setupPlayerOptions } from '../../../utils/player';
+import { updatePlayerProps } from '../../../utils/update-player-props';
+import { PlayerPlaceholderComponent } from '../player-placeholder/player-placeholder.component';
+
+import { PreviousValueService } from './byteark-player-container.component.service';
+
 import type {
   ByteArkPlayer,
   ByteArkPlayerContainerProps,
@@ -19,31 +36,6 @@ import type {
   CreatePlayerFunction,
   SetupPlayerFunction,
 } from '../../../types';
-import {
-  createPlayerInstance,
-  loadPlayerResources,
-  setupPlayer,
-  setupPlayerOptions,
-} from '../../../utils/player';
-import {
-  defaultCreatePlayerFunction,
-  defaultSetupPlayerFunction,
-} from '../../../utils/function';
-import {
-  PLAYER_CSS_FILENAME,
-  PLAYER_ENDPOINT,
-  PLAYER_JS_FILENAME,
-  PLAYER_SERVER_ENDPOINT,
-  PLAYER_VERSION,
-} from '../../../constants';
-import {
-  ByteArkPlayerContainerError,
-  LoadPlayerResourceError,
-  SetupPlayerOptionsError,
-} from '../../../utils/error';
-import { PlayerPlaceholderComponent } from '../player-placeholder/player-placeholder.component';
-import { updatePlayerProps } from '../../../utils/update-player-props';
-import { PreviousValueService } from './byteark-player-container.component.service';
 
 @Component({
   selector: 'byteark-player-container',
@@ -53,24 +45,22 @@ import { PreviousValueService } from './byteark-player-container.component.servi
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class ByteArkPlayerContainer implements OnInit, OnDestroy {
-  @ViewChild('mediaRef') mediaRef: ElementRef<HTMLMediaElement | null> =
-    new ElementRef<HTMLMediaElement | null>(null);
+// eslint-disable-next-line @angular-eslint/component-class-suffix
+export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
+  @ViewChild('mediaRef') mediaRef: ElementRef<HTMLMediaElement | null> = new ElementRef<HTMLMediaElement | null>(null);
 
   @Input() options!: ByteArkPlayerContainerProps;
-  @Input() lazyLoad: boolean = false;
+  @Input() lazyLoad = false;
   @Input() playerEndpoint: string = PLAYER_ENDPOINT;
   @Input() playerServerEndpoint: string = PLAYER_SERVER_ENDPOINT;
   @Input() playerVersion: string = PLAYER_VERSION;
   @Input() playerJsFileName: string = PLAYER_JS_FILENAME;
   @Input() playerCssFileName: string = PLAYER_CSS_FILENAME;
-  @Input() createPlayerFunction: CreatePlayerFunction =
-    defaultCreatePlayerFunction;
-  @Input() setupPlayerFunction: SetupPlayerFunction =
-    defaultSetupPlayerFunction;
+  @Input() createPlayerFunction: CreatePlayerFunction = defaultCreatePlayerFunction;
+  @Input() setupPlayerFunction: SetupPlayerFunction = defaultSetupPlayerFunction;
 
   player: ByteArkPlayer | null = null;
-  initializeInProgress: boolean = false;
+  initializeInProgress = false;
   playerContainerState: ByteArkPlayerContainerState = {
     loaded: false,
     ready: false,
@@ -82,8 +72,8 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
   previousProps?: ByteArkPlayerContainerProps;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private previousValueService: PreviousValueService<ByteArkPlayerContainerProps>
+    @Inject(PLATFORM_ID) private platformId: object,
+    private previousValueService: PreviousValueService<ByteArkPlayerContainerProps>,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -97,10 +87,7 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
     this.options.onPlayerLoaded?.();
   }
 
-  onPlayerLoadError(
-    error: ByteArkPlayerContainerError,
-    originalError: ByteArkPlayerError | unknown
-  ) {
+  onPlayerLoadError(error: ByteArkPlayerContainerError, originalError: ByteArkPlayerError | unknown) {
     this.playerContainerState = { ...this.playerContainerState, error };
     this.options.onPlayerLoadError?.(error, originalError);
   }
@@ -110,10 +97,7 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
     this.options.onPlayerSetup?.();
   }
 
-  onPlayerSetupError(
-    error: ByteArkPlayerContainerError,
-    originalError: ByteArkPlayerError | unknown
-  ) {
+  onPlayerSetupError(error: ByteArkPlayerContainerError, originalError: ByteArkPlayerError | unknown) {
     this.playerContainerState = { ...this.playerContainerState, error };
     this.options.onPlayerSetupError?.(error, originalError);
   }
@@ -143,8 +127,7 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
     if (this.options.class) videoClasses.push(this.options.class);
     if (this.options.fluid) {
       if (this.options.aspectRatio === '4:3') videoClasses.push('vjs-4-3');
-      else if (this.options.aspectRatio === '16:9')
-        videoClasses.push('vjs-16-9');
+      else if (this.options.aspectRatio === '16:9') videoClasses.push('vjs-16-9');
     }
     this.videoClasses = [...this.videoClasses, ...videoClasses];
   }
@@ -172,7 +155,7 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy {
         this.mediaRef.nativeElement,
         options,
         this.createPlayerFunction,
-        this.onPlayerReady
+        this.onPlayerReady,
       );
 
       this.onPlayerCreated();

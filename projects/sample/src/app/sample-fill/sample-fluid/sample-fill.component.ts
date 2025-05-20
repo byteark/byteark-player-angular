@@ -1,23 +1,16 @@
 import { Component } from '@angular/core';
 
-import {
-  ByteArkPlayerContainer,
-  ByteArkPlayerContainerProps,
-} from 'byteark-player-angular';
-import { Video, videos } from '../../../data/videos';
-import { VideoListComponent } from '../../../components/video-list.component';
-import { VideoInfoComponent } from '../../../components/video-info.component';
+import { ByteArkPlayerContainer, ByteArkPlayerContainerProps } from 'byteark-player-angular';
+
 import { SiteNavComponent } from '../../../components/site-nav.component';
+import { VideoInfoComponent } from '../../../components/video-info.component';
+import { VideoListComponent } from '../../../components/video-list.component';
+import { Video, videos } from '../../../data/videos';
 
 @Component({
   selector: 'app-sample-fill',
   standalone: true,
-  imports: [
-    SiteNavComponent,
-    ByteArkPlayerContainer,
-    VideoInfoComponent,
-    VideoListComponent,
-  ],
+  imports: [SiteNavComponent, ByteArkPlayerContainer, VideoInfoComponent, VideoListComponent],
   templateUrl: './sample-fill.component.html',
 })
 export class SampleFillComponent {

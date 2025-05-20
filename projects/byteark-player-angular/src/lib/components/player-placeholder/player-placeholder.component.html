@@ -9,7 +9,7 @@
   <button
     [class]="playerProps.class"
     [ngStyle]="placeholderCustomStyle"
-    (click)="onClickPlaceholder.emit()"
+    (click)="clickPlaceholder.emit()"
   >
     <svg
       *ngIf="shouldShowPlayIcon"

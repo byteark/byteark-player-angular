@@ -1,14 +1,10 @@
 import type { ByteArkPlayer, ByteArkPlayerContainerProps } from '../types';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isEqual(a: any, b: any): boolean {
   if (a === b) return true;
 
-  if (
-    typeof a !== 'object' ||
-    typeof b !== 'object' ||
-    a === null ||
-    b === null
-  ) {
+  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
     return false;
   }
 
@@ -100,7 +96,7 @@ const playerProps: PlayerProps[] = [
 export function updatePlayerProps(
   player: ByteArkPlayer,
   nextProps: ByteArkPlayerContainerProps,
-  prevProps?: ByteArkPlayerContainerProps
+  prevProps?: ByteArkPlayerContainerProps,
 ) {
   if (player.isDisposed()) {
     return;
@@ -109,6 +105,7 @@ export function updatePlayerProps(
   playerProps.forEach(({ name, setter }) => {
     const effectiveSetter: PlayerPropName = (setter || name) as PlayerPropName;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const selectedPlayerProperty = player[effectiveSetter];
 

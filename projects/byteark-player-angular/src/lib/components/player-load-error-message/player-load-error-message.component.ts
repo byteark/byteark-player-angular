@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { type ByteArkPlayerContainerError } from '../../../utils/error';
+
+import type { ByteArkPlayerContainerError } from '../../../utils/error';
 
 @Component({
   selector: 'player-load-error-message',
