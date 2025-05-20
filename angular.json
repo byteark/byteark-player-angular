@@ -30,6 +30,15 @@
             "tsConfig": "projects/byteark-player-angular/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/byteark-player-angular/src/**/*.ts",
+              "projects/byteark-player-angular/src/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -115,11 +124,23 @@
             "styles": ["projects/sample/src/styles.css"],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/sample/src/**/*.ts",
+              "projects/sample/src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "339bbefb-5806-4e34-a8e6-ad1cd1b05fd4"
+    "analytics": "339bbefb-5806-4e34-a8e6-ad1cd1b05fd4",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
