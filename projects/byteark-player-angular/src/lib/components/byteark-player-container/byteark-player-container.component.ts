@@ -50,7 +50,6 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
   @ViewChild('mediaRef') mediaRef: ElementRef<HTMLMediaElement | null> = new ElementRef<HTMLMediaElement | null>(null);
 
   @Input() options!: ByteArkPlayerContainerProps;
-  @Input() lazyLoad = false;
   @Input() playerEndpoint: string = PLAYER_ENDPOINT;
   @Input() playerServerEndpoint: string = PLAYER_SERVER_ENDPOINT;
   @Input() playerVersion: string = PLAYER_VERSION;
@@ -60,15 +59,20 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
   @Input() setupPlayerFunction: SetupPlayerFunction = defaultSetupPlayerFunction;
 
   player: ByteArkPlayer | null = null;
+
   initializeInProgress = false;
+
   playerContainerState: ByteArkPlayerContainerState = {
     loaded: false,
     ready: false,
     error: null,
     showPlaceholder: true,
   };
+
   videoClasses: string[] = [];
+
   isBrowser: boolean;
+
   previousProps?: ByteArkPlayerContainerProps;
 
   constructor(
@@ -76,46 +80,99 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
     private previousValueService: PreviousValueService<ByteArkPlayerContainerProps>,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+
+    this.usePrevious = this.usePrevious.bind(this);
+    this.onPlayerLoaded = this.onPlayerLoaded.bind(this);
+    this.onPlayerLoadError = this.onPlayerLoadError.bind(this);
+    this.onPlayerSetup = this.onPlayerSetup.bind(this);
+    this.onPlayerSetupError = this.onPlayerSetupError.bind(this);
+    this.onPlayerCreated = this.onPlayerCreated.bind(this);
+    this.onPlayerReady = this.onPlayerReady.bind(this);
+    this.onClickPlaceholder = this.onClickPlaceholder.bind(this);
+    this.updateVideoClasses = this.updateVideoClasses.bind(this);
+    this.initializePlayer = this.initializePlayer.bind(this);
   }
 
   usePrevious(value: ByteArkPlayerContainerProps) {
     this.previousValueService.setValue(value);
+
     this.previousProps = this.previousValueService.getPreviousValue();
   }
 
   onPlayerLoaded() {
-    this.options.onPlayerLoaded?.();
+    if (this.options.onPlayerLoaded) {
+      this.options.onPlayerLoaded();
+    }
   }
 
   onPlayerLoadError(error: ByteArkPlayerContainerError, originalError: ByteArkPlayerError | unknown) {
-    this.playerContainerState = { ...this.playerContainerState, error };
-    this.options.onPlayerLoadError?.(error, originalError);
+    this.playerContainerState = {
+      ...this.playerContainerState,
+      error,
+    };
+
+    if (this.options.onPlayerLoadError) {
+      this.options.onPlayerLoadError(error, originalError);
+    }
   }
 
   onPlayerSetup() {
-    this.playerContainerState = { ...this.playerContainerState, loaded: true };
-    this.options.onPlayerSetup?.();
+    this.playerContainerState = {
+      ...this.playerContainerState,
+      loaded: true,
+    };
+
+    if (this.options.onPlayerSetup) {
+      this.options.onPlayerSetup();
+    }
   }
 
   onPlayerSetupError(error: ByteArkPlayerContainerError, originalError: ByteArkPlayerError | unknown) {
-    this.playerContainerState = { ...this.playerContainerState, error };
-    this.options.onPlayerSetupError?.(error, originalError);
+    this.playerContainerState = {
+      ...this.playerContainerState,
+      error,
+    };
+
+    if (this.options.onPlayerSetupError) {
+      this.options.onPlayerSetupError(error, originalError);
+    }
   }
 
   onPlayerCreated() {
-    if (this.player) this.options.onPlayerCreated?.(this.player);
+    this.playerContainerState = {
+      ...this.playerContainerState,
+      showPlaceholder: false,
+    };
+
+    if (this.player && this.options.onPlayerCreated) {
+      this.options.onPlayerCreated(this.player);
+    }
   }
 
   onPlayerReady() {
-    this.playerContainerState = { ...this.playerContainerState, ready: true };
-    if (this.player) this.options.onReady?.(this.player);
+    this.playerContainerState = {
+      ...this.playerContainerState,
+      ready: true,
+    };
+
+    if (this.player && this.options.onReady) {
+      this.options.onReady(this.player);
+    }
+
+    if (this.options.lazyload) {
+      requestAnimationFrame(async () => {
+        // Wait for the next animation frame to ensure the player is ready
+
+        await this.player?.play();
+      });
+    }
   }
 
   async onClickPlaceholder() {
-    if (this.lazyLoad) {
+    if (this.options.lazyload) {
       await this.initializePlayer();
     }
-    await this.player?.play();
+
     this.playerContainerState = {
       ...this.playerContainerState,
       showPlaceholder: false,
@@ -124,18 +181,29 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
 
   updateVideoClasses() {
     const videoClasses = [];
-    if (this.options.class) videoClasses.push(this.options.class);
-    if (this.options.fluid) {
-      if (this.options.aspectRatio === '4:3') videoClasses.push('vjs-4-3');
-      else if (this.options.aspectRatio === '16:9') videoClasses.push('vjs-16-9');
+
+    if (this.options.class) {
+      videoClasses.push(this.options.class);
     }
+
+    if (this.options.fluid) {
+      if (this.options.aspectRatio === '4:3') {
+        videoClasses.push('vjs-4-3');
+      } else if (this.options.aspectRatio === '16:9') {
+        videoClasses.push('vjs-16-9');
+      }
+    }
+
     this.videoClasses = [...this.videoClasses, ...videoClasses];
   }
 
   async initializePlayer() {
-    if (!this.isBrowser || this.initializeInProgress) return;
+    if (!this.isBrowser || this.initializeInProgress) {
+      return;
+    }
 
     this.initializeInProgress = true;
+
     try {
       await loadPlayerResources({
         playerJsFileName: this.playerJsFileName,
@@ -147,8 +215,11 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
       });
 
       this.onPlayerLoaded();
+
       const options = await setupPlayerOptions(this.options);
+
       await setupPlayer(options, this.setupPlayerFunction);
+
       this.onPlayerSetup();
 
       this.player = await createPlayerInstance(
@@ -159,21 +230,18 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
       );
 
       this.onPlayerCreated();
-
-      this.player?.on('play', () => {
-        this.playerContainerState = {
-          ...this.playerContainerState,
-          showPlaceholder: false,
-        };
-      });
     } catch (error) {
       if (error instanceof LoadPlayerResourceError) {
         this.onPlayerSetupError(error, error.originalError);
       } else if (error instanceof SetupPlayerOptionsError) {
         this.onPlayerLoadError(error, error.originalError);
       } else if (error instanceof ByteArkPlayerContainerError) {
-        this.playerContainerState = { ...this.playerContainerState, error };
+        this.playerContainerState = {
+          ...this.playerContainerState,
+          error,
+        };
       }
+
       console.error(error);
     } finally {
       this.initializeInProgress = false;
@@ -181,13 +249,17 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
   }
 
   async ngOnInit() {
-    if (this.isBrowser && !this.lazyLoad) await this.initializePlayer();
+    if (this.isBrowser && !this.options.lazyload) {
+      await this.initializePlayer();
+    }
+
     this.updateVideoClasses();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['options']) {
       this.previousProps = changes['options'].previousValue;
+
       if (this.player && this.options && this.previousProps) {
         updatePlayerProps(this.player, this.options, this.previousProps);
       }
@@ -197,11 +269,17 @@ export class ByteArkPlayerContainer implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
     if (this.player) {
       this.player?.dispose();
+
       this.player = null;
-      this.playerContainerState = {
-        ...this.playerContainerState,
-        ready: false,
-      };
     }
+
+    // reset state to initial
+    this.playerContainerState = {
+      ...this.playerContainerState,
+      loaded: false,
+      ready: false,
+      error: null,
+      showPlaceholder: true,
+    };
   }
 }

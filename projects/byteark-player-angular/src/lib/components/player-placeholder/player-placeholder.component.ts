@@ -76,6 +76,7 @@ export class PlayerPlaceholderComponent implements OnChanges, OnInit {
     if (fluid) {
       this.placeholderCustomStyle['paddingTop'] = `${getPlaceholderPaddingTopFromAspectRatio(aspectRatio || '16:9')}%`;
     }
+
     if (!fluid && fill) {
       this.placeholderCustomStyle['height'] = '100%';
       this.placeholderCustomStyle['minHeight'] = '100%';
