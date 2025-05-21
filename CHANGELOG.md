@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/byteark/byteark-player-angular/compare/v1.0.9...v1.1.0) (2025-05-21)
+
+
+### Changes
+
+* upgrade angular and related packages to v19 ([4d8736f](https://github.com/byteark/byteark-player-angular/commit/4d8736f839209526ae6b4d06eccbb0d2664188f2))
+
+
 ## 1.0.9 (2025-05-20)
 
 
