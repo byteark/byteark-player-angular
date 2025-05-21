@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'video-info',
-  standalone: true,
   imports: [],
   template: `
     <div>

@@ -4,7 +4,6 @@ import type { ByteArkPlayerContainerError } from '../../../utils/error';
 
 @Component({
   selector: 'player-load-error-message',
-  standalone: true,
   imports: [],
   templateUrl: './player-load-error-message.component.html',
 })

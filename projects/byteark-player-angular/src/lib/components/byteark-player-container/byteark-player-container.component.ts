@@ -45,7 +45,6 @@ import type {
 
 @Component({
   selector: 'byteark-player-container',
-  standalone: true,
   imports: [CommonModule, PlayerPlaceholderComponent],
   templateUrl: './byteark-player-container.component.html',
   styles: ``,

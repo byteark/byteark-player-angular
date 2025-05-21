@@ -6,14 +6,12 @@ import { ByteArkPlayerContainer } from 'byteark-player-angular';
 
 import { SiteHeaderComponent } from '../../components/site-header.component';
 import { videos } from '../../data/videos';
-import { CustomPlaceholderComponent } from '../sample-custom-placeholder/custom-placeholder/custom-placeholder.component';
 
 import type { ByteArkPlayerContainerProps } from 'byteark-player-angular';
 
 @Component({
   selector: 'app-sample-blog',
-  standalone: true,
-  imports: [CommonModule, RouterLink, SiteHeaderComponent, ByteArkPlayerContainer, CustomPlaceholderComponent],
+  imports: [CommonModule, RouterLink, SiteHeaderComponent, ByteArkPlayerContainer],
   templateUrl: './sample-blog.component.html',
 })
 export class SampleBlogComponent {

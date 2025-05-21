@@ -6,7 +6,6 @@ import type { Video } from '../data/videos';
 
 @Component({
   selector: 'video-list',
-  standalone: true,
   imports: [VideoListItemComponent],
   template: `
     <div class="flex flex-col gap-3">

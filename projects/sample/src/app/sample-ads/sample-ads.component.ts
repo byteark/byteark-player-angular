@@ -8,7 +8,6 @@ import { videos } from '../../data/videos';
 
 @Component({
   selector: 'app-sample-ads',
-  standalone: true,
   imports: [ByteArkPlayerContainer, SiteNavComponent, VideoInfoComponent],
   templateUrl: './sample-ads.component.html',
 })

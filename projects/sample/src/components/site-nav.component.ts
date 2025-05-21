@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'site-nav',
-  standalone: true,
   imports: [RouterLink],
   template: `
     <header class=" bg-gray-100">

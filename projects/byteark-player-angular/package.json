@@ -21,8 +21,8 @@
     "videojs"
   ],
   "peerDependencies": {
-    "@angular/common": "^18.2.0",
-    "@angular/core": "^18.2.0",
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
     "@types/video.js": "^7.3.58"
   },
   "dependencies": {

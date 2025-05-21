@@ -10,7 +10,6 @@ import { CustomPlaceholderComponent } from './custom-placeholder/custom-placehol
 
 @Component({
   selector: 'app-sample-customer-placeholder',
-  standalone: true,
   imports: [CustomPlaceholderComponent, ByteArkPlayerContainer, SiteNavComponent, VideoInfoComponent],
   templateUrl: `./sample-custom-placeholder.component.html`,
 })

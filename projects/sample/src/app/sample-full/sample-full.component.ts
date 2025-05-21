@@ -6,7 +6,6 @@ import { videos } from '../../data/videos';
 
 @Component({
   selector: 'app-sample-full',
-  standalone: true,
   imports: [ByteArkPlayerContainer],
   templateUrl: './sample-full.component.html',
 })

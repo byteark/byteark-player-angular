@@ -4,7 +4,6 @@ import type { Video } from '../data/videos';
 
 @Component({
   selector: 'video-list-item',
-  standalone: true,
   imports: [],
   template: `
     <li>

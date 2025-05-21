@@ -8,7 +8,6 @@ import { videos } from '../../data/videos';
 
 @Component({
   selector: 'app-sample-lazy-load',
-  standalone: true,
   imports: [ByteArkPlayerContainer, SiteNavComponent, VideoInfoComponent],
   templateUrl: './sample-lazy-load.component.html',
 })

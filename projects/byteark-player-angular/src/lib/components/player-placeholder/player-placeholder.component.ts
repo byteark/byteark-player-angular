@@ -25,7 +25,6 @@ function getPlaceholderPaddingTopFromAspectRatio(aspectRatio: unknown): number {
 
 @Component({
   selector: 'player-placeholder',
-  standalone: true,
   imports: [CommonModule, PlayerLoadErrorMessageComponent],
   templateUrl: './player-placeholder.component.html',
 })

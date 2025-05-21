@@ -8,7 +8,6 @@ import { videos } from '../../data/videos';
 
 @Component({
   selector: 'app-sample-autoplay',
-  standalone: true,
   imports: [ByteArkPlayerContainer, VideoInfoComponent, SiteNavComponent],
   templateUrl: './sample-autoplay.component.html',
 })

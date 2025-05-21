@@ -9,7 +9,6 @@ import { Video, videos } from '../../../data/videos';
 
 @Component({
   selector: 'app-sample-fill',
-  standalone: true,
   imports: [SiteNavComponent, ByteArkPlayerContainer, VideoInfoComponent, VideoListComponent],
   templateUrl: './sample-fill.component.html',
 })
