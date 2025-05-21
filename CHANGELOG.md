@@ -1,3 +1,7 @@
+## [1.1.1](https://github.com/byteark/byteark-player-angular/compare/v1.1.0...v1.1.1) (2025-05-21)
+
+
+
 # [1.1.0](https://github.com/byteark/byteark-player-angular/compare/v1.0.9...v1.1.0) (2025-05-21)
 
 
